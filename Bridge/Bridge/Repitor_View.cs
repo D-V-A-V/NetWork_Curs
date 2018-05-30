@@ -44,6 +44,8 @@ namespace Bridge
             gridDraw.Children.Add(myRect);
 
             myRect.MouseLeftButtonDown += Trigger_MouseLeftButtonDown;
+            repitor.power = false;
+            Recolor();
         }
 
         void Recolor()

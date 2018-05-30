@@ -25,7 +25,7 @@ namespace Bridge
         PC_View[] pC_Clients;
         Most_View[] most_View;
         Most most1, most2;
-        PC_Client choosenClient;
+        PC_View choosenClient;
         Repitor repitor;
         Repitor_View repitor_View;
         public MainWindow()
@@ -85,7 +85,8 @@ namespace Bridge
                 pc.CreatePC();
                 pc.RegisterHandlerChoose(ChoosePC);   
             }
-            choosenClient = Network_Bus1.pC_Clients[0];
+            ChoosePC(pC_Clients[0]);
+            pC_Clients[0].myRect.Fill = new SolidColorBrush(Color.FromArgb(255, 100, 25, 205));
 
             most_View = new Most_View[2];
             most_View[0] = new Most_View(new Point(90, 350+270),grid, most1);
@@ -107,14 +108,16 @@ namespace Bridge
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Log.Text += " Ping from " + choosenClient.IP + " to " + ipToTB.Text + " :\n";
-            choosenClient.Send("", ipToTB.Text, "ping");
+            Log.Text += " Ping from " + choosenClient._Client.IP + " to " + ipToTB.Text + " :\n";
+            choosenClient._Client.Send("", ipToTB.Text, "ping");
         }
 
-        void ChoosePC(PC_Client _Client)
+        void ChoosePC(PC_View _Client)
         {
+            if (choosenClient!=null)
+            choosenClient.returnColor();
             choosenClient = _Client;
-            lb1.Content = "Ping from "+choosenClient.IP+" to";
+            lb1.Content = "Ping from "+choosenClient._Client.IP+" to";
         }
 
         private void Show_Message(String message)

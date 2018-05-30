@@ -12,16 +12,16 @@ namespace Bridge
 {
     class PC_View
     {
-        Rectangle myRect;
+        public Rectangle myRect;
         Rectangle trigger;
         Grid gridDraw;
         protected SolidColorBrush blackBrush
             = new SolidColorBrush() { Color = Color.FromArgb(255, 0, 0, 0) };
         Point location;
         int size = 20;
-        PC_Client _Client;
+        public PC_Client _Client;
 
-        public delegate void  Choose(PC_Client pC_Client);
+        public delegate void  Choose(PC_View pC_Client);
 
         Choose choose;
         public void RegisterHandlerChoose(Choose del)
@@ -68,7 +68,13 @@ namespace Bridge
 
         private void Trigger_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            choose(_Client);
+            choose(this);
+            myRect.Fill = new SolidColorBrush(Color.FromArgb(255, 100, 25, 205));
+        }
+
+        public void returnColor()
+        {
+            myRect.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 255, 255));
         }
     }
 
